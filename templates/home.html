@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}URL Shortener{% endblock %}
+
+
+{% block main %} 
+<style>
+    h1 {
+        padding: 30px;
+        text-align: center;
+        background: #bc1a6b;
+        color: white;
+        font-size: 30px;
+        }
+      a {
+        color: white;    
+        background-color: #636363;    
+        display: inline-block;
+        padding: 10px 20px;
+        border: 2px solid #099983;
+        text-decoration:none;
+        text-align: center;
+        font: 14px Arial, sans-serif;  
+        border-radius:5px;
+        }
+</style>
+<style type ="text/css" >
+    .footer{ 
+        position: fixed;     
+        text-align: left;    
+        bottom: 0px; 
+        width: 100%;
+    }  
+ </style>
+<h1>GYR HUB Data Gatherer</h1>
+
+{% for message in get_flashed_messages() %}
+<h2>{{ message }}</h2>
+{% endfor %}
+
+<a href="{{ url_for('hub_authenticate')}}">Pull HUB Data for UWCO sites</a>
+<div class="footer">Source code for this site at: TBD</div>
+<!-- <a href="{{ url_for('hub_stats')}}">HUB Sites</a> -->
+<!-- <form action="your-url" method="POST">
+    <label for="url">Website URL</label>
+    <input type="url" name="url" value="" required>
+    <br>
+    <label for="code">Short Name</label>
+    <input type="text" name="code" value="" required>
+    <br>
+    <input type="submit" value="Shorten">
+</form>
+
+<form action="your-url" method="POST" enctype="multipart/form-data">
+    <label for="file">File</label>
+    <input type="file" name="file" value="" required>
+    <br>
+    <label for="code">Short Name</label>
+    <input type="text" name="code" value="" required>
+    <br>
+    <input type="submit" value="Shorten">
+</form>
+
+{% if codes %}
+<h2>Codes you have created</h2>
+<ul>
+    {% for code in codes %} 
+    <a href="{{ url_for('redirect_to_url', code=code) }}">
+    <li>{{ code }}</li>
+    </a>
+    {% endfor %}
+</ul>
+{% endif %}  -->
+
+{% endblock %}

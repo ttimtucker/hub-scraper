@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}URL for "{{ code }}"{% endblock %}
+
+{% block main %}
+
+<br>
+<style>
+    table, th, td {
+      border:1px solid black;
+    }
+</style>
+<style>
+    h1 {
+        padding: 30px;
+        text-align: center;
+        background: #bc1a6b;
+        color: white;
+        font-size: 30px;
+        }
+      a {
+        color: white;    
+        background-color: #636363;    
+        display: inline-block;
+        padding: 2px 10px;
+        border: 2px solid #099983;
+        text-decoration:none;
+        text-align: center;
+        font: 14px Arial, sans-serif;  
+        border-radius:5px;
+        }
+</style>
+<style type ="text/css" >
+    .footer{ 
+        position: fixed;     
+        text-align: left;    
+        bottom: 0px; 
+        width: 100%;
+    }  
+ </style>
+<br>
+<table>
+<tr>
+<th>Site</th>
+{% for k in header %}    
+    <th class="vertical">{{ k }}</th>
+{% endfor %}
+</tr>    
+{% for k1,v1 in sites.items() %} 
+    <tr>
+    <td>{{ k1 }}</td>
+    {% for k2,v2 in v1.items() %} 
+        <td>{{ v2 }}</td>
+    {% endfor %}
+    </tr>
+{% endfor %}
+</table>
+<br>
+<a href="{{ url_for('download_csv', sites=sites) }}">Download a CSV</a>
+<br>
+<br>
+<a href="{{ url_for('home') }}">Home</a>
+{% endblock %}
+

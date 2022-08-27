@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}HUB Authentication{% endblock %}
+
+<h1>HUB Authentication</h1>
+
+{% block main %} 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <style>
+    .wrapper {
+      width: 500px;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      background-color: #e0e0e0;
+      padding: 3px;
+      border-radius: 3px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+    }
+    
+    .progress-bar-fill {
+      display: block;
+      height: 22px;
+      background-color: #659cef;
+      border-radius: 3px;
+      
+      transition: width 500ms ease-in-out;
+    }
+  </style>
+  <style>
+    input[type=email] {
+        padding: 10px;
+        margin:10px 0;
+        border-radius:0px;
+    }
+    input[type=password] {
+        padding: 10px;
+        margin:10px 0;
+        border-radius:0px;
+    }
+    /*
+    input[type=submit] {
+        padding: 5px;
+        margin:5px 0;
+        border-radius:10px;
+    }
+    */
+    /*label {
+        color: #B4886B;
+        font-weight: bold;
+        display: block;
+        width: 150px;
+        float: right;
+    }*/
+    .btn {
+        cursor: pointer;
+        background-color:darkgray ;
+        height: 30px;
+        font-family: sans-serif;
+        border-radius:5px;
+    }
+
+    input.btn[type="submit"]:hover {
+        border: 1px solid black;
+    }
+  </style>
+
+<form action="hub_stats" method="POST">
+    
+    <input type="email" name="hub_email" placeholder="Email" value="" required>
+    <br>
+    
+    <input type="password" name="hub_password" placeholder="HUB password" value="" required>
+    <br>
+    <br>
+    <input class="btn" type="submit" value="Login and pull statistics">
+</form>
+
+
+
+<div class="wrapper" id="progress-wrapper" style="display: none;">
+  <p>Percentage complete = <span id=result></span></p>
+  <div class="progress-bar">
+    <span id="pbar" class="progress-bar-fill" style="width: 20%;"></span>
+  </div>
+</div>
+
+<script>
+    let progress = 0;
+    let progresspct='';
+    document.getElementById("progress-wrapper").style.display = "none"
+    console.log("about to call check_progress progress=", progress)
+    check_progress()
+    function check_progress() {
+        //var progress = 0
+        //var progresspct=''
+        console.log("in check_progress about to call worker, progress=", progress)
+        worker()
+        function worker() {
+            //var progress
+            //var progresspct=''
+            console.log("in worker, progress=", progress)
+            $.get('_get_progress', function(data) {
+              console.log("progress=", progress)
+                if (progress > 0) { //Unhide the progress stuff; probably a better way to do this
+                    document.getElementById("progress-wrapper").style.display = "inline"
+                }
+                if (progress < 100) {
+                    $("#result").text(data.result);
+                    progress=data.result
+                    setTimeout(worker, 1000)
+                    console.log("progress=", progress)
+                }
+            })
+            //progress=15
+            //progresspct='15%'
+            console.log("progress before error =", progress)
+            progresspct = 'width: ' + progress.toString() + '%'
+            console.log("progresspct = ", progresspct)
+            document.getElementById('pbar').setAttribute('style', progresspct)
+        }
+    }   
+</script>
+{% endblock %}

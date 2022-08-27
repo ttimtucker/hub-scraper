@@ -1,0 +1,38 @@
+table {
+	border-collapse: collapse;
+    /*font-family: Tahoma, Geneva, sans-serif;*/
+	font-family: sans-serif;
+	font-weight: normal;
+}
+table td {
+	padding: 15px;
+}
+table thead td {
+	background-color: #54585d;
+	/*color: #ffffff;*/
+	font-weight: normal;
+	font-size: 13px;
+	font-family: sans-serif;
+	/*border: 1px solid #54585d;*/
+}
+table tbody td {
+	color: #636363;
+	border: 1px solid #dddfe1;
+}
+table tbody th {
+	color: #636363;
+	border: 1px solid #dddfe1;
+	font-family: sans-serif;
+	font-weight: normal;
+	padding: 10px;
+	background-color: lightblue;
+}
+
+table tbody tr {
+	background-color: #f9fafb;
+}
+table tbody tr:nth-child(odd) {
+	background-color: #ffffff;
+}
+
+th.vertical {writing-mode:vertical-rl; transform:rotate(180deg)}

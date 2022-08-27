@@ -1,0 +1,88 @@
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <style>
+    .wrapper {
+      width: 500px;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      background-color: #e0e0e0;
+      padding: 3px;
+      border-radius: 3px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+    }
+    
+    .progress-bar-fill {
+      display: block;
+      height: 22px;
+      background-color: #659cef;
+      border-radius: 3px;
+      
+      transition: width 500ms ease-in-out;
+    }
+  </style>
+</head>
+<body>
+<script>
+  $SCRIPT_ROOT = {{ request.script_root|tojson }};
+
+</script>
+
+<span id=result></span>
+
+<div class="wrapper">
+  <div class="progress-bar">
+    <span id="pbar" class="progress-bar-fill" style="width: 20%;"></span>
+  </div>
+</div>
+
+
+<script>
+let progress = 0;
+let progresspct='';
+console.log("about to call check_progress progress=", progress)
+check_progress()
+function check_progress() {
+    //var progress = 0
+    //var progresspct=''
+    console.log("in check_progress about to call worker, progress=", progress)
+    worker()
+    function worker() {
+        //var progress
+        //var progresspct=''
+        console.log("in worker, progress=", progress)
+        $.get('_get_progress', function(data) {
+          console.log("progress=", progress)
+            if (progress < 100) {
+                $("#result").text(data.result);
+                progress=data.result
+                setTimeout(worker, 1000)
+                console.log("progress=", progress)
+            }
+        })
+        //progress=15
+        //progresspct='15%'
+        console.log("progress before error =", progress)
+        progresspct = 'width: ' + progress.toString() + '%'
+        console.log("progresspct = ", progresspct)
+        document.getElementById('pbar').setAttribute('style', progresspct)
+    }
+}
+
+
+</script>
+
+<div id="tucker">
+<p>Test data</p>
+
+</div>
+<h1>jQuery Example</h1>
+<br>
+
+<script>
+$(function() {
+  $("#tucker").html("progress")
+});
+</script>
+</body>

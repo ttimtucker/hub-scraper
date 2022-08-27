@@ -1,0 +1,12 @@
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+{% for message in get_flashed_messages() %}
+<h2>{{ message }}</h2>
+{% endfor %}
+
+{% block main %} 
+{% endblock %}

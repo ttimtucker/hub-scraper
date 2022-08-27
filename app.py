@@ -75,6 +75,9 @@ def fn_to_thread():
         progress = int(100*((CurrentPage)/LastPage))
         print(f'fn_to_thread: progress={progress}, AbortThread={AbortThread}, sleeping for 1 second')
         time.sleep(1)
+    time.sleep(2) # Do this so final call of javascript page "should" happen while progress is still = 100
+    progress = 0 # Do this so that future calls from javascript page like from hitting back in browser
+                 # will see progress=0
     return
 
 def get_stats(email,  password):
@@ -253,3 +256,16 @@ if __name__ == "__main__":
 # $env:FLASK_ENV="development"
 #
 # start virtual environment: source venv/bin/activate
+# 
+# git
+# git config --global user.email "tim@ttimtucker.com"
+# git config --global user.name "Tim Tucker"
+# git add <filename>
+# git commit -m "first commit" 
+# git commit -a
+# git branch -M main
+# ??? git remote add origin https://github.com/ttimtucker/hub-scraper.git ???
+# 
+# git token from web page: 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
+# git push https://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@github.com/ttimtucker/hub-scraper.git/
+

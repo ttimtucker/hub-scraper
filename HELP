@@ -1,0 +1,26 @@
+a=BeautifulSoup(data, 'html.parser')
+
+>>> a.find('nav', {'role': 'navigation'})
+<nav aria-label="Pagination" class="pagination" role="navigation"><span aria-disabled="true" class="previous_page disabled"><i class="icon icon-keyboard_arrow_left"></i><span class="hide-on-mobile">Previous</span></span> <em aria-current="page" aria-label="Page 1" class="current">1</em> <a aria-label="Page 2" href="/en/hub/clients?page=2" rel="next">2</a> <a aria-label="Page 3" href="/en/hub/clients?page=3">3</a> <span class="gap">…</span> <a aria-label="Page 50" href="/en/hub/clients?page=50">50</a> <a aria-label="Page 51" href="/en/hub/clients?page=51">51</a> <a class="next_page" href="/en/hub/clients?page=2" rel="next"><span class="hide-on-mobile">Next</span><i class="icon icon-keyboard_arrow_right"></i></a></nav>
+
+# Current page
+>>> a.find('nav', {'role': 'navigation'}).find_all('em', {'aria-current': 'page'})[0].text
+'1'
+
+
+# Last Page
+>>> a.find('nav', {'role': 'navigation'}).find_all('a', {'aria-label': re.compile('Page.*')})[-1].string
+'51'
+
+# Next Page
+>>> a.find('nav', {'role': 'navigation'}).find_all('a', {'class': 'next_page'})[0]['href']
+'/en/hub/clients?page=2'
+
+b=a.find_all('tr')
+for i in b[1:]:
+    #if i.th['class'][0] != "index-table__header":
+    j=i.find_all('td')
+    site=j[2].text.strip()
+    status=i.find('div', {'class':'tax-return-list__status label label--status'})['data-status']
+    print(f'{site}, {status}')
+

@@ -67,6 +67,7 @@
     }
   </style>
   <script>
+    
     clicked = 0
     function buttonClicked() {
         clicked = 1
@@ -110,8 +111,9 @@
             //var progresspct=''
             console.log("check_progress/worker: clicked=", clicked)
             if (clicked == 0) {
-                setTimeout(worker,1000)
+                setTimeout(worker,1000) // Wait for button to be clicked before looking for progress
             } else {
+                //location.reload(true);
                 console.log("in worker, progress=", progress)
                 $.get('_get_progress', function(data) {
                 console.log("progress=", progress)
